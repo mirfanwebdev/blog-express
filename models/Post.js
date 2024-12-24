@@ -2,13 +2,13 @@ const supabase = require("../config/db");
 const collection = process.env.SUPABASE_COLLECTION;
 
 const PostModel = {
-  async getAllPosts() {
+  async getAll() {
     const { data, error } = await supabase.from(collection).select("*");
     if (error) throw error;
     return data;
   },
 
-  async getPostById(id) {
+  async getById(id) {
     const { data, error } = await supabase
       .from(collection)
       .select("*")
@@ -18,13 +18,13 @@ const PostModel = {
     return data;
   },
 
-  async createPost(post) {
+  async create(post) {
     const { data, error } = await supabase.from(collection).insert([post]);
     if (error) throw error;
     return data[0];
   },
 
-  async updatePost(id, update) {
+  async update(id, update) {
     const { data, error } = await supabase
       .from(collection)
       .update(update)
@@ -33,7 +33,7 @@ const PostModel = {
     return data[0];
   },
 
-  async deletePost(id) {
+  async delete(id) {
     const { error } = await supabase.from(collection).delete().eq("id", id);
     if (error) throw error;
     return true;
